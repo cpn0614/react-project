@@ -66,3 +66,43 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### 在create-react-app中使用Less的相关配置
+1. 抛出配置项
+`yarn run eject`
+2. 安装less和less-loader
+`yarn add less less-loader --save-dev`
+3. 配置webpack.config.js文件
+   ```javascript
+   // 添加 less 解析规则
+      const lessRegex = /\.less$/;
+      const lessModuleRegex = /\.module\.less$/;
+   ```
+   rules中添加配置
+   ```javascript
+   // Less 解析配置
+      {
+          test: lessRegex,
+          exclude: lessModuleRegex,
+          use: getStyleLoaders(
+              {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+              },
+              'less-loader'
+          ),
+          sideEffects: true,
+      },
+      {
+          test: lessModuleRegex,
+          use: getStyleLoaders(
+              {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                  modules: true,
+                  getLocalIdent: getCSSModuleLocalIdent,
+              },
+              'less-loader'
+          )
+      },
+   ```
