@@ -4,6 +4,7 @@ import React from 'react';
 // import LikeBtn from './components/Liked'
 // import MapIndex from './components/MapIndex'
 import Comment from './components/comment/Comment'
+import Cloak from './components/cloak/index'
 import './assets/css/App.css';
 
 // const users = [
@@ -19,11 +20,11 @@ import './assets/css/App.css';
 function App() {
   return (
     <div className="App">
-      {/* <Header />
-      <img src={logo} className="App-logo" alt="logo" />
+      {/* <Header /> */}
+      {/* <img src={logo} className="App-logo" alt="logo" />
       <LikeBtn />
       <MapIndex users={users} /> */}
-
+      <Cloak />
       <Comment />
     </div>
   );

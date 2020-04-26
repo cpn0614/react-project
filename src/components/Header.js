@@ -2,6 +2,36 @@ import React, { Component } from 'react'
 // import ReactDOM from 'react-dom'
 
 class Header extends Component {
+  constructor() {
+    super()
+    // console.log('constructor')
+    this.state = {
+      date: new Date()
+    }
+  }
+
+  componentWillMount() {
+    // render之前调用
+    // Ajax 数据的拉取操作、一些定时器的启动放在这
+    // console.log('dom 挂载前')
+    setInterval(() => {
+      this.setState({
+        date: new Date()
+      })
+    }, 1000)
+  }
+
+  componentDidMount() {
+    // render之后调用
+    console.log('dom 已挂载')
+  }
+
+  componentWillUnmount() {
+    console.log('删除前')
+  }
+
+  // componentD
+
   // this.isHelpful = false
   handleClick(e) {
     console.log('you need change my value now!' + e.target.innerHTML)
@@ -13,6 +43,7 @@ class Header extends Component {
   }
 
   render() {
+    console.log('dom render')
     const className = 'header'
     // label的for属性在jsx中需要用htmlfor代替
     let isHelpful = true
@@ -27,7 +58,11 @@ class Header extends Component {
           : '没用的' //null会忽略该表达式插入 可以做到隐藏、显示某些元素
         }</p>
         { !isHelpful ? study : play }
-        <h1>hello world</h1>
+        <h1>
+          <p>现在的时间是</p>
+          {this.state.date.toLocaleString()}
+        </h1>
+
       </div>
     )
   }

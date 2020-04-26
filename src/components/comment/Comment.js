@@ -42,6 +42,10 @@ class CommentForm extends Component {
     }
   }
 
+  componentDidMount() {
+    this.input.focus()
+  }
+
   postComment() {
     if (this.props.onSubmit) {
       const { name, content } = this.state
@@ -73,6 +77,7 @@ class CommentForm extends Component {
           <span className="form-title">用户名：</span>
           <input
             type="text"
+            ref={(input) => this.input = input}
             className={this.state.nameError? 'form-content error' :"form-content"}
             value={this.state.name}
             onBlur={()=> this.state.name === ''? this.setState({nameError: true}) : this.setState({nameError: false})}
@@ -97,8 +102,12 @@ class CommentForm extends Component {
 class CommentList extends Component {
   render() {
     return (
-      <div>
-        {this.props.comments.map((comment, i) => <CommentContent key={i} comment={comment} />)}
+      <div className="comment-list">
+        {this.props.comments.length === 0?
+          <div className="no-comment">暂无评论</div>
+          :
+          this.props.comments.map((comment, i) => <CommentContent key={i} comment={comment} />)
+        }
       </div>
     )
   }
@@ -107,9 +116,9 @@ class CommentList extends Component {
 class CommentContent extends Component {
   render() {
     return (
-      <div>
-        <span>{this.props.comment.username}</span>
-        <div>{this.props.comment.content}</div>
+      <div className="comment-item">
+        <span className="item-name">{this.props.comment.username}</span>：
+        <div className="item-content">{this.props.comment.content}</div>
       </div>
     )
   }
